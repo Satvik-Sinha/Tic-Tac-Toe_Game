@@ -10,6 +10,19 @@ const changeTurn = ()=>{
     return turn === "X"? "0": "X"
 }
 
+// Functin after winning the game
+const wonGame = (boxtext,e) =>{
+    document.querySelector('.info').innerText = boxtext[e[0]].innerText + " Won"
+            isgameover = true;
+            gameover.play();
+            document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "200px";
+            let winBgColor=(Math.floor(Math.random()*(160000-99999) + 99999));
+            document.body.style.backgroundColor='#'+winBgColor;
+            console.log(winBgColor);
+            // document.querySelector(".line").style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`
+            // document.querySelector(".line").style.width = "20vw";
+}
+
 // Function to check for a win
 const checkWin = ()=>{
     let boxtext = document.getElementsByClassName('boxtext');
@@ -35,12 +48,7 @@ const checkWin = ()=>{
     wins.forEach(e =>{
         if((boxtext[e[0]].innerText === boxtext[e[1]].innerText) && (boxtext[e[2]].innerText === boxtext[e[1]].innerText) && (boxtext[e[0]].innerText !== "") )
         {
-            document.querySelector('.info').innerText = boxtext[e[0]].innerText + " Won"
-            isgameover = true;
-            gameover.play();
-            document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "200px";
-            // document.querySelector(".line").style.transform = `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`
-            // document.querySelector(".line").style.width = "20vw";
+            wonGame(boxtext,e);
         }
         else if(!isgameover && cnt==9)
             {
@@ -48,8 +56,7 @@ const checkWin = ()=>{
                 isgameover=true;
                 gameover.play();
             }
-    })
-    
+    })  
 }
 
 
@@ -84,5 +91,6 @@ reset.addEventListener('click', ()=>{
     // document.querySelector(".line").style.width = "0vw";
     document.getElementsByClassName("info")[0].innerText  = "Turn for " + turn;
     document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width = "0px"
+    document.body.style.backgroundColor='';
 })
 
